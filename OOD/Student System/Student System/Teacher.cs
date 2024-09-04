@@ -2,33 +2,33 @@
 
 internal class Teacher : Person
 {
-    private JobPosition _position;
-    private double _salary;
+    public JobPosition Position { get; set; }
+    public double Salary { get; set; }
 
     public Teacher(JobPosition position, double salary, string fullName, int age, int pcn, int yearsAtSchool) : base(fullName, age, pcn, yearsAtSchool)
     {
-        _position = position;
-        _salary = salary;
+        Position = position;
+        Salary = salary;
     }
 
     public void Promote()
     {
-        if (_position != JobPosition.DIRECTOR)
-            _position++;
+        if (Position != JobPosition.DIRECTOR)
+            Position++;
     }
 
     public override void StartAnotherSchoolYear()
     {
         base.StartAnotherSchoolYear();
-        if (_yearsAtSchool % 3 == 0)
-            _salary *= 1.1;
+        if (base.YearsAtSchool % 3 == 0)
+            Salary *= 1.1;
     }
 
     public override string ToString()
     {
         string info = base.ToString()+"\n";
-        info += $"Position: {_position}\n" +
-                $"Salary: {_salary}\n";
+        info += $"Position: {Position}\n" +
+                $"Salary: {Salary}\n";
         return info;
     }
 }

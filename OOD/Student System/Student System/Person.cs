@@ -2,27 +2,27 @@
 
 internal class Person
 {
-    private string _fullName;
-    private int _age;
-    private int _pcn;
-    protected int _yearsAtSchool;
+    public string FullName { get; set; }
+    public int Age { get; set; }
+    public int Pcn { get; set; }
+    public int YearsAtSchool { get; set; }
 
     public Person(string fullName, int age, int pcn, int yearsAtSchool)
     {
-        _fullName = fullName;
-        _age = age;
-        _pcn = pcn;
-        _yearsAtSchool = yearsAtSchool;
+        FullName = fullName;
+        Age = age;
+        Pcn = pcn;
+        YearsAtSchool = yearsAtSchool;
     }
 
-    public void CelebrateBirthday() { _age++; }
-    public virtual void StartAnotherSchoolYear() { _yearsAtSchool++; }
+    public void CelebrateBirthday() { Age++; }
+    public virtual void StartAnotherSchoolYear() { YearsAtSchool++; }
 
     public override string ToString()
     {
-        return $"Name: {_fullName}\n" +
-               $"Age: {_age}\n" +
-               $"PCN: {_pcn}\n" +
-               $"Years at school: {_yearsAtSchool}\n";
+        return $"Name: {FullName}\n" +
+               $"Age: {Age}\n" +
+               $"PCN: {Pcn}\n" +
+               $"Years at school: {YearsAtSchool}\n";
     }
 }

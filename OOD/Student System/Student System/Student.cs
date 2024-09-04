@@ -2,12 +2,12 @@
 
 internal class Student : Person
 {
-    private int _nrOfECs;
+    public int NrOfECs { get; set; }
 
     public Student(int nrOfECs, string name, int age, int pcn, int yearsAtSchool) : base(name, age, pcn, yearsAtSchool)
     {
-        _nrOfECs = nrOfECs;
+        NrOfECs = nrOfECs;
     }
 
-    public void AddECs(int n) { _nrOfECs += n; }
+    public void AddECs(int n) { NrOfECs += n; }
 }
