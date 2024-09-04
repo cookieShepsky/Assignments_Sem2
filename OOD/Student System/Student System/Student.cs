@@ -10,4 +10,11 @@ internal class Student : Person
     }
 
     public void AddECs(int n) { NrOfECs += n; }
+
+    public override string ToString()
+    {
+        string info = base.ToString();
+        info += $"ECs: {NrOfECs}";
+        return info;
+    }
 }
