@@ -17,6 +17,13 @@ internal class Teacher : Person
             _position++;
     }
 
+    public override void StartAnotherSchoolYear()
+    {
+        base.StartAnotherSchoolYear();
+        if (_yearsAtSchool % 3 == 0)
+            _salary *= 1.1;
+    }
+
     public override string ToString()
     {
         string info = base.ToString()+"\n";

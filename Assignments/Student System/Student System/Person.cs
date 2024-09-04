@@ -5,7 +5,7 @@ internal class Person
     private string _fullName;
     private int _age;
     private int _pcn;
-    private int _yearsAtSchool;
+    protected int _yearsAtSchool;
 
     public Person(string fullName, int age, int pcn, int yearsAtSchool)
     {
@@ -16,7 +16,7 @@ internal class Person
     }
 
     public void CelebrateBirthday() { _age++; }
-    public void StartAnotherSchoolYear() { _yearsAtSchool++; }
+    public virtual void StartAnotherSchoolYear() { _yearsAtSchool++; }
 
     public override string ToString()
     {
