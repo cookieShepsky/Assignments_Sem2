@@ -1,11 +1,2 @@
-﻿################################################################################
-# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
-################################################################################
-
-/Assignments/Student System/.vs/Student System/FileContentIndex
-/Assignments/Student System/.vs/Student System/v17
-/Assignments/Student System/Student System/obj/Debug/net8.0-windows
-/Assignments/Student System/Student System/obj
-/Assignments/Student System/.vs/ProjectEvaluation
-/Assignments/Student System/.vs/Student System/DesignTimeBuild
-/Assignments/Student System/Student System/bin/Debug/net8.0-windows
+﻿../.vs/..
+../Debug/..
