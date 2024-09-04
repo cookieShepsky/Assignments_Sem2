@@ -32,8 +32,8 @@
             btnAddTeacher = new Button();
             btnAddStudent = new Button();
             btnAddPerson = new Button();
-            textBox2 = new TextBox();
-            textBox1 = new TextBox();
+            tbSalary = new TextBox();
+            tbECs = new TextBox();
             tbYears = new TextBox();
             tbAge = new TextBox();
             tbName = new TextBox();
@@ -53,13 +53,13 @@
             tbInfo = new TextBox();
             btnShowInfo = new Button();
             groupBoxManage = new GroupBox();
+            lblSelectedPerson = new Label();
             label8 = new Label();
             btnAddECs = new Button();
             btnCelebrate = new Button();
-            tbECs = new TextBox();
+            tbAddECs = new TextBox();
             btnPromote = new Button();
             btnNewYear = new Button();
-            lblSelectedPerson = new Label();
             groupBoxAdd.SuspendLayout();
             groupBoxInfo.SuspendLayout();
             groupBoxManage.SuspendLayout();
@@ -70,8 +70,8 @@
             groupBoxAdd.Controls.Add(btnAddTeacher);
             groupBoxAdd.Controls.Add(btnAddStudent);
             groupBoxAdd.Controls.Add(btnAddPerson);
-            groupBoxAdd.Controls.Add(textBox2);
-            groupBoxAdd.Controls.Add(textBox1);
+            groupBoxAdd.Controls.Add(tbSalary);
+            groupBoxAdd.Controls.Add(tbECs);
             groupBoxAdd.Controls.Add(tbYears);
             groupBoxAdd.Controls.Add(tbAge);
             groupBoxAdd.Controls.Add(tbName);
@@ -97,6 +97,7 @@
             btnAddTeacher.TabIndex = 8;
             btnAddTeacher.Text = "New Teacher";
             btnAddTeacher.UseVisualStyleBackColor = true;
+            btnAddTeacher.Click += btnAddTeacher_Click;
             // 
             // btnAddStudent
             // 
@@ -106,6 +107,7 @@
             btnAddStudent.TabIndex = 7;
             btnAddStudent.Text = "New Student";
             btnAddStudent.UseVisualStyleBackColor = true;
+            btnAddStudent.Click += btnAddStudent_Click;
             // 
             // btnAddPerson
             // 
@@ -115,20 +117,23 @@
             btnAddPerson.TabIndex = 6;
             btnAddPerson.Text = "New Person";
             btnAddPerson.UseVisualStyleBackColor = true;
+            btnAddPerson.Click += btnAddPerson_Click;
             // 
-            // textBox2
+            // tbSalary
             // 
-            textBox2.Location = new Point(606, 103);
-            textBox2.Name = "textBox2";
-            textBox2.Size = new Size(135, 23);
-            textBox2.TabIndex = 5;
+            tbSalary.Location = new Point(606, 103);
+            tbSalary.Name = "tbSalary";
+            tbSalary.Size = new Size(135, 23);
+            tbSalary.TabIndex = 5;
+            tbSalary.TextChanged += TextboxTextChanged;
             // 
-            // textBox1
+            // tbECs
             // 
-            textBox1.Location = new Point(358, 103);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(135, 23);
-            textBox1.TabIndex = 4;
+            tbECs.Location = new Point(358, 103);
+            tbECs.Name = "tbECs";
+            tbECs.Size = new Size(135, 23);
+            tbECs.TabIndex = 4;
+            tbECs.TextChanged += TextboxTextChanged;
             // 
             // tbYears
             // 
@@ -136,6 +141,7 @@
             tbYears.Name = "tbYears";
             tbYears.Size = new Size(135, 23);
             tbYears.TabIndex = 3;
+            tbYears.TextChanged += TextboxTextChanged;
             // 
             // tbAge
             // 
@@ -143,6 +149,7 @@
             tbAge.Name = "tbAge";
             tbAge.Size = new Size(135, 23);
             tbAge.TabIndex = 2;
+            tbAge.TextChanged += TextboxTextChanged;
             // 
             // tbName
             // 
@@ -150,6 +157,7 @@
             tbName.Name = "tbName";
             tbName.Size = new Size(135, 23);
             tbName.TabIndex = 1;
+            tbName.TextChanged += TextboxTextChanged;
             // 
             // tbPCN
             // 
@@ -157,6 +165,7 @@
             tbPCN.Name = "tbPCN";
             tbPCN.Size = new Size(135, 23);
             tbPCN.TabIndex = 0;
+            tbPCN.TextChanged += TextboxTextChanged;
             // 
             // label5
             // 
@@ -291,7 +300,7 @@
             groupBoxManage.Controls.Add(label8);
             groupBoxManage.Controls.Add(btnAddECs);
             groupBoxManage.Controls.Add(btnCelebrate);
-            groupBoxManage.Controls.Add(tbECs);
+            groupBoxManage.Controls.Add(tbAddECs);
             groupBoxManage.Controls.Add(btnPromote);
             groupBoxManage.Controls.Add(btnNewYear);
             groupBoxManage.Location = new Point(218, 414);
@@ -300,6 +309,16 @@
             groupBoxManage.TabIndex = 999;
             groupBoxManage.TabStop = false;
             groupBoxManage.Text = "Manage Person";
+            // 
+            // lblSelectedPerson
+            // 
+            lblSelectedPerson.AutoSize = true;
+            lblSelectedPerson.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblSelectedPerson.Location = new Point(273, 19);
+            lblSelectedPerson.Name = "lblSelectedPerson";
+            lblSelectedPerson.Size = new Size(107, 15);
+            lblSelectedPerson.TabIndex = 20;
+            lblSelectedPerson.Text = "lblSelectedPerson";
             // 
             // label8
             // 
@@ -328,12 +347,12 @@
             btnCelebrate.Text = "Celebrate Birthday";
             btnCelebrate.UseVisualStyleBackColor = true;
             // 
-            // tbECs
+            // tbAddECs
             // 
-            tbECs.Location = new Point(6, 16);
-            tbECs.Name = "tbECs";
-            tbECs.Size = new Size(50, 23);
-            tbECs.TabIndex = 15;
+            tbAddECs.Location = new Point(6, 16);
+            tbAddECs.Name = "tbAddECs";
+            tbAddECs.Size = new Size(50, 23);
+            tbAddECs.TabIndex = 15;
             // 
             // btnPromote
             // 
@@ -352,16 +371,6 @@
             btnNewYear.TabIndex = 19;
             btnNewYear.Text = "Start New Schoolyear";
             btnNewYear.UseVisualStyleBackColor = true;
-            // 
-            // lblSelectedPerson
-            // 
-            lblSelectedPerson.AutoSize = true;
-            lblSelectedPerson.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblSelectedPerson.Location = new Point(273, 19);
-            lblSelectedPerson.Name = "lblSelectedPerson";
-            lblSelectedPerson.Size = new Size(107, 15);
-            lblSelectedPerson.TabIndex = 20;
-            lblSelectedPerson.Text = "lblSelectedPerson";
             // 
             // MainForm
             // 
@@ -398,8 +407,8 @@
         private TextBox tbName;
         private Label label6;
         private Label label3;
-        private TextBox textBox2;
-        private TextBox textBox1;
+        private TextBox tbSalary;
+        private TextBox tbECs;
         private Label label5;
         private Label label4;
         private Button btnAddTeacher;
@@ -417,7 +426,7 @@
         private Label label8;
         private Button btnAddECs;
         private Button btnCelebrate;
-        private TextBox tbECs;
+        private TextBox tbAddECs;
         private Button btnPromote;
         private Button btnNewYear;
         private Label lblSelectedPerson;
