@@ -20,9 +20,9 @@ internal class Person
 
     public override string ToString()
     {
-        return $"Name: {FullName}\n" +
-               $"Age: {Age}\n" +
-               $"PCN: {Pcn}\n" +
-               $"Years at school: {YearsAtSchool}\n";
+        return $"PCN: {Pcn}\t\n" +
+               $"Name: {FullName}\t\n" +
+               $"Age: {Age}\t\n" +
+               $"Years at school: {YearsAtSchool}\t\n";
     }
 }

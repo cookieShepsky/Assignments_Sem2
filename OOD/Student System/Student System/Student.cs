@@ -14,7 +14,7 @@ internal class Student : Person
     public override string ToString()
     {
         string info = base.ToString();
-        info += $"ECs: {NrOfECs}";
+        info += $"ECs: {NrOfECs}\t";
         return info;
     }
 }

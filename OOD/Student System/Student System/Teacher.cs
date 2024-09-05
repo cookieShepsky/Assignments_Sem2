@@ -27,8 +27,8 @@ internal class Teacher : Person
     public override string ToString()
     {
         string info = base.ToString();
-        info += $"Position: {Position}\n" +
-                $"Salary: {Salary}\n";
+        info += $"Position: {Position}\t\n" +
+                $"Salary: {Salary}\t\n";
         return info;
     }
 }
