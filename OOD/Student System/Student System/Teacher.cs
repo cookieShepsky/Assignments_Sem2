@@ -28,7 +28,7 @@ internal class Teacher : Person
     {
         string info = base.ToString();
         info += $"Position: {Position}\t\n" +
-                $"Salary: {Salary}\t\n";
+                $"Salary: {Salary:C}\t\n";
         return info;
     }
 }
