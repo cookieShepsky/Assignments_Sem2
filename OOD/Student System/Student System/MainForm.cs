@@ -83,7 +83,6 @@
         /// <returns>
         /// True if all inputs are valid; False if one or more inputs are not valid
         /// </returns>
-
         private void btnAddTeacher_Click(object sender, EventArgs e)
         {
             if (!ValidateInput())
@@ -104,40 +103,50 @@
         {
             //TODO: unique PCNs
             // Check validity of input
-            foreach (char c in tbPCN.Text)
-                if (!char.IsNumber(c))
-                {
-                    MessageBox.Show("PCN should only contain numbers.");
-                    return false;
-                }
+            // Old code below, trying out lambda for the first time :D
 
-            foreach (char c in tbAge.Text)
-                if (!char.IsNumber(c))
-                {
-                    MessageBox.Show("Age should only contain numbers.");
-                    return false;
-                }
+            // Before:
+            //foreach (char c in tbPCN.Text)
+            //    if (!char.IsNumber(c))
+            //    {
+            //        MessageBox.Show("PCN should only contain numbers.");
+            //        return false;
+            //    }
 
-            foreach (char c in tbYears.Text)
-                if (!char.IsNumber(c))
-                {
-                    MessageBox.Show("'Years at school' should only contain numbers.");
-                    return false;
-                }
+            // After:
+            if (tbPCN.Text.Any(c => !char.IsNumber(c)))
+            {
+                MessageBox.Show("PCN should only contain numbers.");
+                return false;
+            }
 
-            foreach (char c in tbECs.Text)
-                if (!char.IsNumber(c))
-                {
-                    MessageBox.Show("ECs should only contain numbers.");
-                    return false;
-                }
+            //foreach (char c in tbAge.Text)
+            if (tbAge.Text.Any(c => !char.IsNumber(c)))
+            {
+                MessageBox.Show("Age should only contain numbers.");
+                return false;
+            }
 
-            foreach (char c in tbSalary.Text)
-                if (!char.IsNumber(c))
-                {
-                    MessageBox.Show("Salary should only contain numbers.");
-                    return false;
-                }
+            //foreach (char c in tbYears.Text)
+            if (tbYears.Text.Any(c => !char.IsNumber(c)))
+            {
+                MessageBox.Show("'Years at school' should only contain numbers.");
+                return false;
+            }
+
+            //foreach (char c in tbECs.Text)
+            if (tbECs.Text.Any(c => !char.IsNumber(c)))
+            {
+                MessageBox.Show("ECs should only contain numbers.");
+                return false;
+            }
+
+            //foreach (char c in tbSalary.Text)
+            if (tbSalary.Text.Any(c => !char.IsNumber(c)))
+            {
+                MessageBox.Show("Salary should only contain numbers.");
+                return false;
+            }
 
             return true;
         }
