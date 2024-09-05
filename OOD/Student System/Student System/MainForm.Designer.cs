@@ -48,21 +48,23 @@
             btnShowStudents = new Button();
             btnShowTeachers = new Button();
             lbx = new ListBox();
-            groupBoxInfo = new GroupBox();
+            groupBoxSearch = new GroupBox();
             label7 = new Label();
             tbInfo = new TextBox();
-            btnShowInfo = new Button();
+            btnSelect = new Button();
             groupBoxManage = new GroupBox();
+            nudECs = new NumericUpDown();
             lblSelectedPerson = new Label();
             label8 = new Label();
             btnAddECs = new Button();
             btnCelebrate = new Button();
-            tbAddECs = new TextBox();
             btnPromote = new Button();
             btnNewYear = new Button();
+            btnShowAll = new Button();
             groupBoxAdd.SuspendLayout();
-            groupBoxInfo.SuspendLayout();
+            groupBoxSearch.SuspendLayout();
             groupBoxManage.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)nudECs).BeginInit();
             SuspendLayout();
             // 
             // groupBoxAdd
@@ -225,7 +227,7 @@
             // 
             btnShowPersons.Location = new Point(18, 195);
             btnShowPersons.Name = "btnShowPersons";
-            btnShowPersons.Size = new Size(237, 23);
+            btnShowPersons.Size = new Size(171, 23);
             btnShowPersons.TabIndex = 9;
             btnShowPersons.Text = "Show All Persons";
             btnShowPersons.UseVisualStyleBackColor = true;
@@ -233,9 +235,9 @@
             // 
             // btnShowStudents
             // 
-            btnShowStudents.Location = new Point(268, 195);
+            btnShowStudents.Location = new Point(206, 195);
             btnShowStudents.Name = "btnShowStudents";
-            btnShowStudents.Size = new Size(237, 23);
+            btnShowStudents.Size = new Size(171, 23);
             btnShowStudents.TabIndex = 10;
             btnShowStudents.Text = "Show All Students";
             btnShowStudents.UseVisualStyleBackColor = true;
@@ -243,9 +245,9 @@
             // 
             // btnShowTeachers
             // 
-            btnShowTeachers.Location = new Point(516, 195);
+            btnShowTeachers.Location = new Point(394, 195);
             btnShowTeachers.Name = "btnShowTeachers";
-            btnShowTeachers.Size = new Size(237, 23);
+            btnShowTeachers.Size = new Size(171, 23);
             btnShowTeachers.TabIndex = 11;
             btnShowTeachers.Text = "Show All Teachers";
             btnShowTeachers.UseVisualStyleBackColor = true;
@@ -260,17 +262,17 @@
             lbx.Size = new Size(760, 184);
             lbx.TabIndex = 12;
             // 
-            // groupBoxInfo
+            // groupBoxSearch
             // 
-            groupBoxInfo.Controls.Add(label7);
-            groupBoxInfo.Controls.Add(tbInfo);
-            groupBoxInfo.Controls.Add(btnShowInfo);
-            groupBoxInfo.Location = new Point(12, 414);
-            groupBoxInfo.Name = "groupBoxInfo";
-            groupBoxInfo.Size = new Size(200, 140);
-            groupBoxInfo.TabIndex = 999;
-            groupBoxInfo.TabStop = false;
-            groupBoxInfo.Text = "Search";
+            groupBoxSearch.Controls.Add(label7);
+            groupBoxSearch.Controls.Add(tbInfo);
+            groupBoxSearch.Controls.Add(btnSelect);
+            groupBoxSearch.Location = new Point(12, 414);
+            groupBoxSearch.Name = "groupBoxSearch";
+            groupBoxSearch.Size = new Size(200, 140);
+            groupBoxSearch.TabIndex = 999;
+            groupBoxSearch.TabStop = false;
+            groupBoxSearch.Text = "Search";
             // 
             // label7
             // 
@@ -286,24 +288,26 @@
             tbInfo.Location = new Point(50, 16);
             tbInfo.Name = "tbInfo";
             tbInfo.Size = new Size(135, 23);
-            tbInfo.TabIndex = 13;
+            tbInfo.TabIndex = 14;
+            tbInfo.TextChanged += tbInfo_TextChanged;
             // 
-            // btnShowInfo
+            // btnSelect
             // 
-            btnShowInfo.Location = new Point(10, 45);
-            btnShowInfo.Name = "btnShowInfo";
-            btnShowInfo.Size = new Size(175, 23);
-            btnShowInfo.TabIndex = 14;
-            btnShowInfo.Text = "Show Info";
-            btnShowInfo.UseVisualStyleBackColor = true;
+            btnSelect.Location = new Point(10, 45);
+            btnSelect.Name = "btnSelect";
+            btnSelect.Size = new Size(175, 23);
+            btnSelect.TabIndex = 15;
+            btnSelect.Text = "Select";
+            btnSelect.UseVisualStyleBackColor = true;
+            btnSelect.Click += btnSelect_Click;
             // 
             // groupBoxManage
             // 
+            groupBoxManage.Controls.Add(nudECs);
             groupBoxManage.Controls.Add(lblSelectedPerson);
             groupBoxManage.Controls.Add(label8);
             groupBoxManage.Controls.Add(btnAddECs);
             groupBoxManage.Controls.Add(btnCelebrate);
-            groupBoxManage.Controls.Add(tbAddECs);
             groupBoxManage.Controls.Add(btnPromote);
             groupBoxManage.Controls.Add(btnNewYear);
             groupBoxManage.Location = new Point(218, 414);
@@ -312,6 +316,13 @@
             groupBoxManage.TabIndex = 999;
             groupBoxManage.TabStop = false;
             groupBoxManage.Text = "Manage Person";
+            // 
+            // nudECs
+            // 
+            nudECs.Location = new Point(6, 18);
+            nudECs.Name = "nudECs";
+            nudECs.Size = new Size(50, 23);
+            nudECs.TabIndex = 16;
             // 
             // lblSelectedPerson
             // 
@@ -337,51 +348,59 @@
             btnAddECs.Location = new Point(62, 16);
             btnAddECs.Name = "btnAddECs";
             btnAddECs.Size = new Size(119, 23);
-            btnAddECs.TabIndex = 16;
+            btnAddECs.TabIndex = 17;
             btnAddECs.Text = "Add ECs";
             btnAddECs.UseVisualStyleBackColor = true;
+            btnAddECs.Click += btnAddECs_Click;
             // 
             // btnCelebrate
             // 
             btnCelebrate.Location = new Point(6, 45);
             btnCelebrate.Name = "btnCelebrate";
             btnCelebrate.Size = new Size(175, 23);
-            btnCelebrate.TabIndex = 17;
+            btnCelebrate.TabIndex = 18;
             btnCelebrate.Text = "Celebrate Birthday";
             btnCelebrate.UseVisualStyleBackColor = true;
-            // 
-            // tbAddECs
-            // 
-            tbAddECs.Location = new Point(6, 16);
-            tbAddECs.Name = "tbAddECs";
-            tbAddECs.Size = new Size(50, 23);
-            tbAddECs.TabIndex = 15;
+            btnCelebrate.Click += btnCelebrate_Click;
             // 
             // btnPromote
             // 
             btnPromote.Location = new Point(6, 74);
             btnPromote.Name = "btnPromote";
             btnPromote.Size = new Size(175, 23);
-            btnPromote.TabIndex = 18;
+            btnPromote.TabIndex = 19;
             btnPromote.Text = "Promote";
             btnPromote.UseVisualStyleBackColor = true;
+            btnPromote.Click += btnPromote_Click;
             // 
             // btnNewYear
             // 
             btnNewYear.Location = new Point(6, 103);
             btnNewYear.Name = "btnNewYear";
             btnNewYear.Size = new Size(175, 23);
-            btnNewYear.TabIndex = 19;
+            btnNewYear.TabIndex = 20;
             btnNewYear.Text = "Start New Schoolyear";
             btnNewYear.UseVisualStyleBackColor = true;
+            btnNewYear.Click += btnNewYear_Click;
+            // 
+            // btnShowAll
+            // 
+            btnShowAll.Location = new Point(582, 195);
+            btnShowAll.Name = "btnShowAll";
+            btnShowAll.Size = new Size(171, 23);
+            btnShowAll.TabIndex = 12;
+            btnShowAll.Text = "Show Everyone";
+            btnShowAll.UseVisualStyleBackColor = true;
+            btnShowAll.Click += btnShowAll_Click;
             // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(786, 601);
+            Controls.Add(btnShowAll);
             Controls.Add(groupBoxManage);
-            Controls.Add(groupBoxInfo);
+            Controls.Add(groupBoxSearch);
             Controls.Add(lbx);
             Controls.Add(groupBoxAdd);
             Controls.Add(btnShowTeachers);
@@ -392,10 +411,11 @@
             Text = "MainForm";
             groupBoxAdd.ResumeLayout(false);
             groupBoxAdd.PerformLayout();
-            groupBoxInfo.ResumeLayout(false);
-            groupBoxInfo.PerformLayout();
+            groupBoxSearch.ResumeLayout(false);
+            groupBoxSearch.PerformLayout();
             groupBoxManage.ResumeLayout(false);
             groupBoxManage.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)nudECs).EndInit();
             ResumeLayout(false);
         }
 
@@ -421,17 +441,18 @@
         private Button btnShowStudents;
         private Button btnShowTeachers;
         private ListBox lbx;
-        private GroupBox groupBoxInfo;
+        private GroupBox groupBoxSearch;
         private GroupBox groupBoxManage;
         private Label label7;
         private TextBox tbInfo;
-        private Button btnShowInfo;
+        private Button btnSelect;
         private Label label8;
         private Button btnAddECs;
         private Button btnCelebrate;
-        private TextBox tbAddECs;
         private Button btnPromote;
         private Button btnNewYear;
         private Label lblSelectedPerson;
+        private Button btnShowAll;
+        private NumericUpDown nudECs;
     }
 }

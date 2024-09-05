@@ -2,12 +2,18 @@
 {
     public partial class MainForm : Form
     {
+        //TODO: pcn search
         private Administration _admin;
+        private Person _selectedPerson;
+
         public MainForm()
         {
             InitializeComponent();
             RefreshControls();
+            lblSelectedPerson.Text = string.Empty;
             _admin = new();
+            DebugData();
+            PopulateLbx();
         }
 
         /// <summary>
@@ -15,8 +21,8 @@
         /// </summary>
         public void RefreshControls()
         {
+            btnAddPerson.Enabled = btnAddStudent.Enabled = btnAddTeacher.Enabled = btnAddECs.Enabled = btnCelebrate.Enabled = btnPromote.Enabled = btnNewYear.Enabled = false;
             // Disable "new" buttons if fields are empty
-            btnAddPerson.Enabled = btnAddStudent.Enabled = btnAddTeacher.Enabled = false;
 
             if (!string.IsNullOrWhiteSpace(tbPCN.Text) &&
                 !string.IsNullOrWhiteSpace(tbName.Text) &&
@@ -29,16 +35,33 @@
 
             if (!string.IsNullOrWhiteSpace(tbSalary.Text) && btnAddPerson.Enabled)
                 btnAddTeacher.Enabled = true;
+
+            // Disable Managing buttons if no person is selected
+            if (_selectedPerson != null)
+            {
+                if (_selectedPerson.GetType() == typeof(Person))
+                    btnNewYear.Enabled = btnCelebrate.Enabled = true;
+
+                if (_selectedPerson.GetType() == typeof(Student))
+                    btnNewYear.Enabled = btnCelebrate.Enabled = btnAddECs.Enabled = true;
+
+                else if (_selectedPerson.GetType() == typeof(Teacher))
+                    btnNewYear.Enabled = btnCelebrate.Enabled = btnPromote.Enabled = true;
+            }
         }
 
         /// <summary>
         /// Clears all the textboxes in a specified ControlCollection
         /// </summary>
-        public void EmptyFields(ControlCollection controlCollection)
+        public void EmptyFields(Control.ControlCollection controlCollection)
         {
-            foreach (Control control in controlCollection)
-                if (control.GetType() == typeof(TextBox))
-                    control.Text = string.Empty;
+            //foreach (Control control in controlCollection)        // Old code
+            //    if (control.GetType() == typeof(TextBox))
+            //        control.Text = string.Empty;
+
+            Control[] tbControls = controlCollection.OfType<TextBox>().ToArray();       // Woah! Really like this line
+            foreach (TextBox t in tbControls)
+                t.Text = String.Empty;
         }
 
         private void TextboxTextChanged(object sender, EventArgs e)
@@ -59,6 +82,8 @@
             Person p = new Person(fullName, age, pcn, yearsAtSchool);
             _admin.Persons.Add(p);
             MessageBox.Show("Successfully added a new person:\n\n" + p);
+            PopulateLbx();
+            EmptyFields(groupBoxAdd.Controls);
         }
 
         private void btnAddStudent_Click(object sender, EventArgs e)
@@ -75,6 +100,8 @@
             Student s = new Student(ECs, fullName, age, pcn, yearsAtSchool);
             _admin.Students.Add(s);
             MessageBox.Show("Successfully added a new student:\n\n" + s);
+            PopulateLbx();
+            EmptyFields(groupBoxAdd.Controls);
         }
 
         private void btnAddTeacher_Click(object sender, EventArgs e)
@@ -91,6 +118,8 @@
             Teacher t = new Teacher(0, salary, fullName, age, pcn, yearsAtSchool);
             _admin.Teachers.Add(t);
             MessageBox.Show("Successfully added a new teacher:\n\n" + t);
+            PopulateLbx();
+            EmptyFields(groupBoxAdd.Controls);
         }
 
         /// <summary>
@@ -101,7 +130,6 @@
         /// </returns>
         private bool ValidateInput()
         {
-            //TODO: unique PCNs
             // Old code below, trying out lambda for the first time :D
 
             // Before:
@@ -128,7 +156,7 @@
                 MessageBox.Show("PCN must be unique.");
                 return false;
             }
-            
+
             if (tbAge.Text.Any(c => !char.IsNumber(c)))
             {
                 MessageBox.Show("Age should only contain numbers.");
@@ -157,16 +185,29 @@
         }
 
         /// <summary>
-        /// Populate lbx with the contents of a List
+        /// Populate lbx with all persons/teachers/students
         /// </summary>
-        private void PopulateLbx<T>(List<T> list)
+        private void PopulateLbx()
         {
-            // Trying out generic type parameters
             lbx.Items.Clear();
-            foreach (var l in list)
+            foreach (Person p in _admin.Persons)
+                lbx.Items.Add(p);
+            foreach (Student s in _admin.Students)
+                lbx.Items.Add(s);
+            foreach (Teacher t in _admin.Teachers)
+                lbx.Items.Add(t);
+        }
+
+        /// <summary>
+        /// Populate lbx with the contents of a specific List
+        /// </summary>
+        private void PopulateLbx<T>(List<T> list)       // Trying out generic type parameters
+        {
+            lbx.Items.Clear();
+            foreach (T l in list)
                 lbx.Items.Add(l);
         }
-        
+
         private void btnShowPersons_Click(object sender, EventArgs e)       //NOTE: wish I could somehow pass the list to add through the EventArgs or something...
         {
             PopulateLbx<Person>(_admin.Persons);    // Very cool!
@@ -180,6 +221,63 @@
         private void btnShowTeachers_Click(object sender, EventArgs e)
         {
             PopulateLbx<Teacher>(_admin.Teachers);
+        }
+
+        private void btnShowAll_Click(object sender, EventArgs e)
+        {
+            PopulateLbx();
+        }
+
+        private void btnSelect_Click(object sender, EventArgs e)
+        {
+            _selectedPerson = (Person)lbx.SelectedItem;
+            lblSelectedPerson.Text = _selectedPerson.ToString();
+            //Note: So I can store any object that inherits from Person in a variable of type person?
+            //      If so that's a pretty neat usecase for using inheritance...
+            //      I suppose I've noticed this already when I used the Control.ControlCollection subclass earlier.
+
+            RefreshControls();
+        }
+
+        private void DebugData()
+        {
+            _admin.Persons.Add(new Person("John Doe", 26, 1, 3));
+            _admin.Students.Add(new Student(34513442, "Rody Jansen", 23, 514216, 1));
+            _admin.Teachers.Add(new Teacher(JobPosition.TEACHER3, 280000, "Albert Einstein", 69, 420, 50));
+        }
+
+        private void btnAddECs_Click(object sender, EventArgs e)
+        {
+            Student selected = (Student)_selectedPerson;
+            selected.AddECs((int)nudECs.Value);
+            lblSelectedPerson.Text = _selectedPerson.ToString();
+        }
+
+        private void btnCelebrate_Click(object sender, EventArgs e)
+        {
+            _selectedPerson.CelebrateBirthday();
+            lblSelectedPerson.Text = _selectedPerson.ToString();
+        }
+
+        private void btnPromote_Click(object sender, EventArgs e)
+        {
+            Teacher selected = (Teacher)_selectedPerson;
+            selected.Promote();
+            lblSelectedPerson.Text = _selectedPerson.ToString();
+        }
+
+        private void btnNewYear_Click(object sender, EventArgs e)
+        {
+            _selectedPerson.StartAnotherSchoolYear();
+            lblSelectedPerson.Text = _selectedPerson.ToString();
+        }
+
+        private void tbInfo_TextChanged(object sender, EventArgs e)
+        {
+            lbx.Items.Clear();
+            lbx.Items.AddRange(_admin.Persons.Where(p => p.Pcn.ToString().StartsWith(tbInfo.Text)).ToArray());
+            lbx.Items.AddRange(_admin.Students.Where(s => s.Pcn.ToString().StartsWith(tbInfo.Text)).ToArray());
+            lbx.Items.AddRange(_admin.Teachers.Where(t => t.Pcn.ToString().StartsWith(tbInfo.Text)).ToArray());
         }
     }
 }
