@@ -2,7 +2,6 @@
 {
     public partial class MainForm : Form
     {
-        //TODO: pcn search
         private Administration _admin;
         private Person _selectedPerson;
 
