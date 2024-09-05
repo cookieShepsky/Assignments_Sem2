@@ -63,63 +63,6 @@
                 t.Text = String.Empty;
         }
 
-        private void TextboxTextChanged(object sender, EventArgs e)
-        {
-            RefreshControls();
-        }
-
-        private void btnAddPerson_Click(object sender, EventArgs e)
-        {
-            if (!ValidateInput())
-                return;
-
-            int pcn = Convert.ToInt32(tbPCN.Text);
-            string fullName = tbName.Text;
-            int age = Convert.ToInt32(tbAge.Text);
-            int yearsAtSchool = Convert.ToInt32(tbYears.Text);
-
-            Person p = new Person(fullName, age, pcn, yearsAtSchool);
-            _admin.Persons.Add(p);
-            MessageBox.Show("Successfully added a new person:\n\n" + p);
-            PopulateLbx();
-            EmptyFields(groupBoxAdd.Controls);
-        }
-
-        private void btnAddStudent_Click(object sender, EventArgs e)
-        {
-            if (!ValidateInput())
-                return;
-
-            int pcn = Convert.ToInt32(tbPCN.Text);
-            string fullName = tbName.Text;
-            int age = Convert.ToInt32(tbAge.Text);
-            int yearsAtSchool = Convert.ToInt32(tbYears.Text);
-            int ECs = Convert.ToInt32(tbECs.Text);
-
-            Student s = new Student(ECs, fullName, age, pcn, yearsAtSchool);
-            _admin.Students.Add(s);
-            MessageBox.Show("Successfully added a new student:\n\n" + s);
-            PopulateLbx();
-            EmptyFields(groupBoxAdd.Controls);
-        }
-
-        private void btnAddTeacher_Click(object sender, EventArgs e)
-        {
-            if (!ValidateInput())
-                return;
-
-            int pcn = Convert.ToInt32(tbPCN.Text);
-            string fullName = tbName.Text;
-            int age = Convert.ToInt32(tbAge.Text);
-            int yearsAtSchool = Convert.ToInt32(tbYears.Text);
-            double salary = Convert.ToDouble(tbSalary.Text);
-
-            Teacher t = new Teacher(0, salary, fullName, age, pcn, yearsAtSchool);
-            _admin.Teachers.Add(t);
-            MessageBox.Show("Successfully added a new teacher:\n\n" + t);
-            PopulateLbx();
-            EmptyFields(groupBoxAdd.Controls);
-        }
 
         /// <summary>
         /// Validate input of TextBoxes in groupBoxAdd.
@@ -207,6 +150,64 @@
                 lbx.Items.Add(l);
         }
 
+        private void TextboxTextChanged(object sender, EventArgs e)
+        {
+            RefreshControls();
+        }
+
+        private void btnAddPerson_Click(object sender, EventArgs e)
+        {
+            if (!ValidateInput())
+                return;
+
+            int pcn = Convert.ToInt32(tbPCN.Text);
+            string fullName = tbName.Text;
+            int age = Convert.ToInt32(tbAge.Text);
+            int yearsAtSchool = Convert.ToInt32(tbYears.Text);
+
+            Person p = new Person(fullName, age, pcn, yearsAtSchool);
+            _admin.Persons.Add(p);
+            MessageBox.Show("Successfully added a new person:\n\n" + p);
+            PopulateLbx();
+            EmptyFields(groupBoxAdd.Controls);
+        }
+
+        private void btnAddStudent_Click(object sender, EventArgs e)
+        {
+            if (!ValidateInput())
+                return;
+
+            int pcn = Convert.ToInt32(tbPCN.Text);
+            string fullName = tbName.Text;
+            int age = Convert.ToInt32(tbAge.Text);
+            int yearsAtSchool = Convert.ToInt32(tbYears.Text);
+            int ECs = Convert.ToInt32(tbECs.Text);
+
+            Student s = new Student(ECs, fullName, age, pcn, yearsAtSchool);
+            _admin.Students.Add(s);
+            MessageBox.Show("Successfully added a new student:\n\n" + s);
+            PopulateLbx();
+            EmptyFields(groupBoxAdd.Controls);
+        }
+
+        private void btnAddTeacher_Click(object sender, EventArgs e)
+        {
+            if (!ValidateInput())
+                return;
+
+            int pcn = Convert.ToInt32(tbPCN.Text);
+            string fullName = tbName.Text;
+            int age = Convert.ToInt32(tbAge.Text);
+            int yearsAtSchool = Convert.ToInt32(tbYears.Text);
+            double salary = Convert.ToDouble(tbSalary.Text);
+
+            Teacher t = new Teacher(0, salary, fullName, age, pcn, yearsAtSchool);
+            _admin.Teachers.Add(t);
+            MessageBox.Show("Successfully added a new teacher:\n\n" + t);
+            PopulateLbx();
+            EmptyFields(groupBoxAdd.Controls);
+        }
+
         private void btnShowPersons_Click(object sender, EventArgs e)       //NOTE: wish I could somehow pass the list to add through the EventArgs or something...
         {
             PopulateLbx<Person>(_admin.Persons);    // Very cool!
@@ -236,13 +237,6 @@
             //      I suppose I've noticed this already when I used the Control.ControlCollection subclass earlier.
 
             RefreshControls();
-        }
-
-        private void DebugData()
-        {
-            _admin.Persons.Add(new Person("John Doe", 26, 1, 3));
-            _admin.Students.Add(new Student(34513442, "Rody Jansen", 23, 514216, 1));
-            _admin.Teachers.Add(new Teacher(JobPosition.TEACHER3, 280000, "Albert Einstein", 69, 420, 50));
         }
 
         private void btnAddECs_Click(object sender, EventArgs e)
@@ -277,6 +271,16 @@
             lbx.Items.AddRange(_admin.Persons.Where(p => p.Pcn.ToString().StartsWith(tbInfo.Text)).ToArray());
             lbx.Items.AddRange(_admin.Students.Where(s => s.Pcn.ToString().StartsWith(tbInfo.Text)).ToArray());
             lbx.Items.AddRange(_admin.Teachers.Where(t => t.Pcn.ToString().StartsWith(tbInfo.Text)).ToArray());
+        }
+
+        /// <summary>
+        /// Adds mock data for debugging.
+        /// </summary>
+        private void DebugData()
+        {
+            _admin.Persons.Add(new Person("John Doe", 26, 1, 3));
+            _admin.Students.Add(new Student(34513442, "Rody Jansen", 23, 514216, 1));
+            _admin.Teachers.Add(new Teacher(JobPosition.TEACHER3, 280000, "Albert Einstein", 69, 420, 50));
         }
     }
 }
