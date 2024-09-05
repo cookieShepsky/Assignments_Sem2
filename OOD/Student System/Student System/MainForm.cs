@@ -77,12 +77,6 @@
             MessageBox.Show("Successfully added a new student:\n\n" + s);
         }
 
-        /// <summary>
-        /// Validate input of TextBoxes in groupBoxAdd.
-        /// </summary>
-        /// <returns>
-        /// True if all inputs are valid; False if one or more inputs are not valid
-        /// </returns>
         private void btnAddTeacher_Click(object sender, EventArgs e)
         {
             if (!ValidateInput())
@@ -99,10 +93,15 @@
             MessageBox.Show("Successfully added a new teacher:\n\n" + t);
         }
 
+        /// <summary>
+        /// Validate input of TextBoxes in groupBoxAdd.
+        /// </summary>
+        /// <returns>
+        /// True if all inputs are valid; False if one or more inputs are not valid
+        /// </returns>
         private bool ValidateInput()
         {
             //TODO: unique PCNs
-            // Check validity of input
             // Old code below, trying out lambda for the first time :D
 
             // Before:
@@ -120,28 +119,34 @@
                 return false;
             }
 
-            //foreach (char c in tbAge.Text)
+            // Check if PCN is unique
+            int newPcn = Convert.ToInt32(tbPCN.Text);
+            if (_admin.Persons.Any(p => p.Pcn == newPcn) ||
+                _admin.Students.Any(s => s.Pcn == newPcn) ||
+                _admin.Teachers.Any(t => t.Pcn == newPcn))
+            {
+                MessageBox.Show("PCN must be unique.");
+                return false;
+            }
+            
             if (tbAge.Text.Any(c => !char.IsNumber(c)))
             {
                 MessageBox.Show("Age should only contain numbers.");
                 return false;
             }
 
-            //foreach (char c in tbYears.Text)
             if (tbYears.Text.Any(c => !char.IsNumber(c)))
             {
                 MessageBox.Show("'Years at school' should only contain numbers.");
                 return false;
             }
 
-            //foreach (char c in tbECs.Text)
             if (tbECs.Text.Any(c => !char.IsNumber(c)))
             {
                 MessageBox.Show("ECs should only contain numbers.");
                 return false;
             }
 
-            //foreach (char c in tbSalary.Text)
             if (tbSalary.Text.Any(c => !char.IsNumber(c)))
             {
                 MessageBox.Show("Salary should only contain numbers.");
@@ -149,6 +154,32 @@
             }
 
             return true;
+        }
+
+        /// <summary>
+        /// Populate lbx with the contents of a List
+        /// </summary>
+        private void PopulateLbx<T>(List<T> list)
+        {
+            // Trying out generic type parameters
+            lbx.Items.Clear();
+            foreach (var l in list)
+                lbx.Items.Add(l);
+        }
+        
+        private void btnShowPersons_Click(object sender, EventArgs e)       //NOTE: wish I could somehow pass the list to add through the EventArgs or something...
+        {
+            PopulateLbx<Person>(_admin.Persons);    // Very cool!
+        }
+
+        private void btnShowStudents_Click(object sender, EventArgs e)
+        {
+            PopulateLbx<Student>(_admin.Students);
+        }
+
+        private void btnShowTeachers_Click(object sender, EventArgs e)
+        {
+            PopulateLbx<Teacher>(_admin.Teachers);
         }
     }
 }

@@ -229,6 +229,7 @@
             btnShowPersons.TabIndex = 9;
             btnShowPersons.Text = "Show All Persons";
             btnShowPersons.UseVisualStyleBackColor = true;
+            btnShowPersons.Click += btnShowPersons_Click;
             // 
             // btnShowStudents
             // 
@@ -238,6 +239,7 @@
             btnShowStudents.TabIndex = 10;
             btnShowStudents.Text = "Show All Students";
             btnShowStudents.UseVisualStyleBackColor = true;
+            btnShowStudents.Click += btnShowStudents_Click;
             // 
             // btnShowTeachers
             // 
@@ -247,6 +249,7 @@
             btnShowTeachers.TabIndex = 11;
             btnShowTeachers.Text = "Show All Teachers";
             btnShowTeachers.UseVisualStyleBackColor = true;
+            btnShowTeachers.Click += btnShowTeachers_Click;
             // 
             // lbx
             // 
