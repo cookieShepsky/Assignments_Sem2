@@ -3,7 +3,7 @@
     public partial class MainForm : Form
     {
         private Administration _admin;
-        private Person _selectedPerson;
+        private Person? _selectedPerson;
 
         public MainForm()
         {
@@ -20,19 +20,20 @@
         /// </summary>
         public void RefreshControls()
         {
-            btnAddPerson.Enabled = btnAddStudent.Enabled = btnAddTeacher.Enabled = btnAddECs.Enabled = btnCelebrate.Enabled = btnPromote.Enabled = btnNewYear.Enabled = false;
+            bool baseReq = false;
+            btnAddStudent.Enabled = btnAddTeacher.Enabled = btnAddECs.Enabled = btnCelebrate.Enabled = btnPromote.Enabled = btnNewYear.Enabled = false;
             // Disable "new" buttons if fields are empty
 
             if (!string.IsNullOrWhiteSpace(tbPCN.Text) &&
                 !string.IsNullOrWhiteSpace(tbName.Text) &&
                 !string.IsNullOrWhiteSpace(tbAge.Text) &&
                 !string.IsNullOrWhiteSpace(tbYears.Text))
-                btnAddPerson.Enabled = true;
+                baseReq = true;
 
-            if (!string.IsNullOrWhiteSpace(tbECs.Text) && btnAddPerson.Enabled)
+            if (!string.IsNullOrWhiteSpace(tbECs.Text) && baseReq)
                 btnAddStudent.Enabled = true;
 
-            if (!string.IsNullOrWhiteSpace(tbSalary.Text) && btnAddPerson.Enabled)
+            if (!string.IsNullOrWhiteSpace(tbSalary.Text) && baseReq)
                 btnAddTeacher.Enabled = true;
 
             // Disable Managing buttons if no person is selected
@@ -91,8 +92,7 @@
 
             // Check if PCN is unique
             int newPcn = Convert.ToInt32(tbPCN.Text);
-            if (_admin.Persons.Any(p => p.Pcn == newPcn) ||
-                _admin.Students.Any(s => s.Pcn == newPcn) ||
+            if (_admin.Students.Any(s => s.Pcn == newPcn) ||
                 _admin.Teachers.Any(t => t.Pcn == newPcn))
             {
                 MessageBox.Show("PCN must be unique.");
@@ -132,8 +132,8 @@
         private void PopulateLbx()
         {
             lbx.Items.Clear();
-            foreach (Person p in _admin.Persons)
-                lbx.Items.Add(p);
+            //foreach (Person p in _admin.Persons)
+            //    lbx.Items.Add(p);
             foreach (Student s in _admin.Students)
                 lbx.Items.Add(s);
             foreach (Teacher t in _admin.Teachers)
@@ -147,7 +147,7 @@
         {
             lbx.Items.Clear();
             foreach (T l in list)
-                lbx.Items.Add(l);
+                lbx.Items.Add(l!);
         }
 
         private void TextboxTextChanged(object sender, EventArgs e)
@@ -155,22 +155,22 @@
             RefreshControls();
         }
 
-        private void btnAddPerson_Click(object sender, EventArgs e)
-        {
-            if (!ValidateInput())
-                return;
+        //private void btnAddPerson_Click(object sender, EventArgs e)
+        //{
+        //    if (!ValidateInput())
+        //        return;
 
-            int pcn = Convert.ToInt32(tbPCN.Text);
-            string fullName = tbName.Text;
-            int age = Convert.ToInt32(tbAge.Text);
-            int yearsAtSchool = Convert.ToInt32(tbYears.Text);
+        //    int pcn = Convert.ToInt32(tbPCN.Text);
+        //    string fullName = tbName.Text;
+        //    int age = Convert.ToInt32(tbAge.Text);
+        //    int yearsAtSchool = Convert.ToInt32(tbYears.Text);
 
-            Person p = new Person(fullName, age, pcn, yearsAtSchool);
-            _admin.Persons.Add(p);
-            MessageBox.Show("Successfully added a new person:\n\n" + p);
-            PopulateLbx();
-            EmptyFields(groupBoxAdd.Controls);
-        }
+        //    Person p = new Person(fullName, age, pcn, yearsAtSchool);
+        //    _admin.Persons.Add(p);
+        //    MessageBox.Show("Successfully added a new person:\n\n" + p);
+        //    PopulateLbx();
+        //    EmptyFields(groupBoxAdd.Controls);
+        //}
 
         private void btnAddStudent_Click(object sender, EventArgs e)
         {
@@ -208,10 +208,10 @@
             EmptyFields(groupBoxAdd.Controls);
         }
 
-        private void btnShowPersons_Click(object sender, EventArgs e)       //NOTE: wish I could somehow pass the list to add through the EventArgs or something...
-        {
-            PopulateLbx<Person>(_admin.Persons);    // Very cool!
-        }
+        //private void btnShowPersons_Click(object sender, EventArgs e)       //NOTE: wish I could somehow pass the list to add through the EventArgs or something...
+        //{
+        //    PopulateLbx<Person>(_admin.Persons);    // Very cool!
+        //}
 
         private void btnShowStudents_Click(object sender, EventArgs e)
         {
@@ -230,7 +230,7 @@
 
         private void btnSelect_Click(object sender, EventArgs e)
         {
-            _selectedPerson = (Person)lbx.SelectedItem;
+            _selectedPerson = (Person)lbx.SelectedItem!;
             lblSelectedPerson.Text = _selectedPerson.ToString();
             //Note: So I can store any object that inherits from Person in a variable of type person?
             //      If so that's a pretty neat usecase for using inheritance...
@@ -241,34 +241,38 @@
 
         private void btnAddECs_Click(object sender, EventArgs e)
         {
-            Student selected = (Student)_selectedPerson;
+            Student selected = (Student)_selectedPerson!;
             selected.AddECs((int)nudECs.Value);
-            lblSelectedPerson.Text = _selectedPerson.ToString();
+            lblSelectedPerson.Text = _selectedPerson!.ToString();
+            PopulateLbx();
         }
 
         private void btnCelebrate_Click(object sender, EventArgs e)
         {
-            _selectedPerson.CelebrateBirthday();
-            lblSelectedPerson.Text = _selectedPerson.ToString();
+            _selectedPerson!.CelebrateBirthday();
+            lblSelectedPerson.Text = _selectedPerson!.ToString();
+            PopulateLbx();
         }
 
         private void btnPromote_Click(object sender, EventArgs e)
         {
-            Teacher selected = (Teacher)_selectedPerson;
+            Teacher selected = (Teacher)_selectedPerson!;
             selected.Promote();
-            lblSelectedPerson.Text = _selectedPerson.ToString();
+            lblSelectedPerson.Text = _selectedPerson!.ToString();
+            PopulateLbx();
         }
 
         private void btnNewYear_Click(object sender, EventArgs e)
         {
-            _selectedPerson.StartAnotherSchoolYear();
-            lblSelectedPerson.Text = _selectedPerson.ToString();
+            _selectedPerson!.StartAnotherSchoolYear();
+            lblSelectedPerson.Text = _selectedPerson!.ToString();
+            PopulateLbx();
         }
 
         private void tbInfo_TextChanged(object sender, EventArgs e)
         {
             lbx.Items.Clear();
-            lbx.Items.AddRange(_admin.Persons.Where(p => p.Pcn.ToString().StartsWith(tbInfo.Text)).ToArray());
+            //lbx.Items.AddRange(_admin.Persons.Where(p => p.Pcn.ToString().StartsWith(tbInfo.Text)).ToArray());
             lbx.Items.AddRange(_admin.Students.Where(s => s.Pcn.ToString().StartsWith(tbInfo.Text)).ToArray());
             lbx.Items.AddRange(_admin.Teachers.Where(t => t.Pcn.ToString().StartsWith(tbInfo.Text)).ToArray());
         }
@@ -278,7 +282,7 @@
         /// </summary>
         private void DebugData()
         {
-            _admin.Persons.Add(new Person("John Doe", 26, 1, 3));
+            _admin.Students.Add(new Student(2,"Mustafa Osman Abou", 26, 1, 3));
             _admin.Students.Add(new Student(34513442, "Rody Jansen", 23, 514216, 1));
             _admin.Teachers.Add(new Teacher(JobPosition.TEACHER3, 280000, "Albert Einstein", 69, 420, 50));
         }

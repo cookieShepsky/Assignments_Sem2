@@ -1,6 +1,6 @@
 ﻿namespace Student_System;
 
-internal class Person
+internal abstract class Person
 {
     public string FullName { get; set; }
     public int Age { get; set; }

@@ -1,3 +1,5 @@
+using System.Diagnostics;
+
 namespace Student_System
 {
     internal static class Program

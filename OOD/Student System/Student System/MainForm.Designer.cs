@@ -31,7 +31,6 @@
             groupBoxAdd = new GroupBox();
             btnAddTeacher = new Button();
             btnAddStudent = new Button();
-            btnAddPerson = new Button();
             tbSalary = new TextBox();
             tbECs = new TextBox();
             tbYears = new TextBox();
@@ -44,7 +43,6 @@
             label3 = new Label();
             label2 = new Label();
             label1 = new Label();
-            btnShowPersons = new Button();
             btnShowStudents = new Button();
             btnShowTeachers = new Button();
             lbx = new ListBox();
@@ -71,7 +69,6 @@
             // 
             groupBoxAdd.Controls.Add(btnAddTeacher);
             groupBoxAdd.Controls.Add(btnAddStudent);
-            groupBoxAdd.Controls.Add(btnAddPerson);
             groupBoxAdd.Controls.Add(tbSalary);
             groupBoxAdd.Controls.Add(tbECs);
             groupBoxAdd.Controls.Add(tbYears);
@@ -93,9 +90,9 @@
             // 
             // btnAddTeacher
             // 
-            btnAddTeacher.Location = new Point(504, 143);
+            btnAddTeacher.Location = new Point(382, 143);
             btnAddTeacher.Name = "btnAddTeacher";
-            btnAddTeacher.Size = new Size(237, 23);
+            btnAddTeacher.Size = new Size(359, 23);
             btnAddTeacher.TabIndex = 8;
             btnAddTeacher.Text = "New Teacher";
             btnAddTeacher.UseVisualStyleBackColor = true;
@@ -103,23 +100,13 @@
             // 
             // btnAddStudent
             // 
-            btnAddStudent.Location = new Point(256, 143);
+            btnAddStudent.Location = new Point(6, 143);
             btnAddStudent.Name = "btnAddStudent";
-            btnAddStudent.Size = new Size(237, 23);
+            btnAddStudent.Size = new Size(359, 23);
             btnAddStudent.TabIndex = 7;
             btnAddStudent.Text = "New Student";
             btnAddStudent.UseVisualStyleBackColor = true;
             btnAddStudent.Click += btnAddStudent_Click;
-            // 
-            // btnAddPerson
-            // 
-            btnAddPerson.Location = new Point(6, 143);
-            btnAddPerson.Name = "btnAddPerson";
-            btnAddPerson.Size = new Size(237, 23);
-            btnAddPerson.TabIndex = 6;
-            btnAddPerson.Text = "New Person";
-            btnAddPerson.UseVisualStyleBackColor = true;
-            btnAddPerson.Click += btnAddPerson_Click;
             // 
             // tbSalary
             // 
@@ -223,21 +210,11 @@
             label1.TabIndex = 2;
             label1.Text = "PCN:";
             // 
-            // btnShowPersons
-            // 
-            btnShowPersons.Location = new Point(18, 195);
-            btnShowPersons.Name = "btnShowPersons";
-            btnShowPersons.Size = new Size(171, 23);
-            btnShowPersons.TabIndex = 9;
-            btnShowPersons.Text = "Show All Persons";
-            btnShowPersons.UseVisualStyleBackColor = true;
-            btnShowPersons.Click += btnShowPersons_Click;
-            // 
             // btnShowStudents
             // 
-            btnShowStudents.Location = new Point(206, 195);
+            btnShowStudents.Location = new Point(18, 195);
             btnShowStudents.Name = "btnShowStudents";
-            btnShowStudents.Size = new Size(171, 23);
+            btnShowStudents.Size = new Size(240, 23);
             btnShowStudents.TabIndex = 10;
             btnShowStudents.Text = "Show All Students";
             btnShowStudents.UseVisualStyleBackColor = true;
@@ -245,9 +222,9 @@
             // 
             // btnShowTeachers
             // 
-            btnShowTeachers.Location = new Point(394, 195);
+            btnShowTeachers.Location = new Point(265, 195);
             btnShowTeachers.Name = "btnShowTeachers";
-            btnShowTeachers.Size = new Size(171, 23);
+            btnShowTeachers.Size = new Size(240, 23);
             btnShowTeachers.TabIndex = 11;
             btnShowTeachers.Text = "Show All Teachers";
             btnShowTeachers.UseVisualStyleBackColor = true;
@@ -385,9 +362,9 @@
             // 
             // btnShowAll
             // 
-            btnShowAll.Location = new Point(582, 195);
+            btnShowAll.Location = new Point(513, 195);
             btnShowAll.Name = "btnShowAll";
-            btnShowAll.Size = new Size(171, 23);
+            btnShowAll.Size = new Size(240, 23);
             btnShowAll.TabIndex = 12;
             btnShowAll.Text = "Show Everyone";
             btnShowAll.UseVisualStyleBackColor = true;
@@ -405,7 +382,6 @@
             Controls.Add(groupBoxAdd);
             Controls.Add(btnShowTeachers);
             Controls.Add(btnShowStudents);
-            Controls.Add(btnShowPersons);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             Name = "MainForm";
             Text = "MainForm";
@@ -436,8 +412,6 @@
         private Label label4;
         private Button btnAddTeacher;
         private Button btnAddStudent;
-        private Button btnAddPerson;
-        private Button btnShowPersons;
         private Button btnShowStudents;
         private Button btnShowTeachers;
         private ListBox lbx;

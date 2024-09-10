@@ -2,21 +2,21 @@
 
 internal class Administration
 {
-    public List<Person> Persons { get; } = [];
+    //public List<Person> Persons { get; } = [];
     public List<Student> Students { get; } = [];
     public List<Teacher> Teachers { get; } = [];
 
     public Administration(){}
 
-    // Removed getters en "adders" , since I used Properties.
+    // Removed getters and setters , since I used Properties.
 
-    public Person? GetPerson(int pcn)
-    {
-        foreach (Person p in Persons)
-            if (p.Pcn == pcn)
-                return p;
-        return null;
-    }
+    //public Person? GetPerson(int pcn)
+    //{
+    //    foreach (Person p in Persons)
+    //        if (p.Pcn == pcn)
+    //            return p;
+    //    return null;
+    //}
 
     public Student? GetStudent(int pcn)
     {
